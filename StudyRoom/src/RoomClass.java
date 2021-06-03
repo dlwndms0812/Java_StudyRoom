@@ -6,6 +6,15 @@ public class RoomClass {
 	String room;
 	int fee;
 	int capacity;
+	int maxPeople;
+	
+	void setPeople(int maxPeople) {
+		this.maxPeople=maxPeople;
+	}
+	
+	int getPeople() {
+		return maxPeople;
+	}
 	
 	void checkEnter(int enter) {
 		
