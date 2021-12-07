@@ -3,12 +3,10 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class UploadGUI extends JFrame{
+public class UploadGUI extends JPanel{
     public UploadGUI() {
-    	setTitle("저장하기");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Container c=getContentPane();
-		c.setLayout(null);
+    	
+		this.setLayout(null);
 		
 		//제목
 		JLabel jl=new JLabel("Study Room");
@@ -44,16 +42,15 @@ public class UploadGUI extends JFrame{
 		JButton btn=new JButton("종료");
 		btn.setSize(220,40);
 		btn.setLocation(90, 330);
-	    add(btn);
+		add(btn);
 		
 		
 		//팝업
 		
+		this.setBackground(Color.white);
 		setSize(400,700);
 		setVisible(true);
     }
     
-    public static void main(String[] args) {
-    	new UploadGUI();
-    }
+   
 }

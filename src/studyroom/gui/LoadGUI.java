@@ -3,12 +3,10 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class LoadGUI extends JFrame {
+public class LoadGUI extends JPanel{
     public LoadGUI() {
-    	setTitle("불러오기");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Container c=getContentPane();
-		c.setLayout(null);
+    	
+		this.setLayout(null);
 		
 		//제목
 		JLabel jl=new JLabel("Study Room");
@@ -49,10 +47,9 @@ public class LoadGUI extends JFrame {
 		
 		//팝업
 		
+	    this.setBackground(Color.white);
 		setSize(400,700);
 		setVisible(true);
     }
-    public static void main(String[] args) {
-    	new LoadGUI();
-    }
+    
 }
