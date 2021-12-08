@@ -1,11 +1,14 @@
 package studyroom.gui;
 import javax.swing.*;
+import javax.swing.border.MatteBorder;
+
 import java.awt.event.*;
 import java.awt.*;
 public class UserGUI extends JPanel implements ActionListener{
 	JButton[] btn=new JButton[4];
     JLabel jl2=new JLabel();
-
+    Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
+    JLabel jl3=new JLabel();
 	public UserGUI() {
 		
 		this.setLayout(null);
@@ -14,24 +17,41 @@ public class UserGUI extends JPanel implements ActionListener{
 		JLabel jl=new JLabel("Study Room");
 		jl.setSize(200,30);
 		jl.setLocation(100,120);
-		jl.setFont(new Font("Dialog", Font.BOLD,25));
+		jl.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 25));
+    	jl.setForeground(new Color(142, 196, 240));
 		jl.setHorizontalAlignment(JLabel.CENTER);
 		add(jl);
 		
 		//결과 값
 		//테두리 안되나?
 		jl2.setSize(200,50);
-		jl2.setLocation(100,150);
+		jl2.setLocation(100,180);
 		jl2.setHorizontalAlignment(JLabel.CENTER);
+		jl2.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 15));
+    	jl2.setForeground(new Color(142, 196, 240));
 		add(jl2);
 		
+		jl3.setSize(200,50);
+		jl3.setLocation(100,230);
+		jl3.setHorizontalAlignment(JLabel.CENTER);
+		jl3.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 10));
+    	jl3.setForeground(new Color(142, 196, 240));
+		add(jl3);
+		jl3.setVisible(false);
+		
 		//버튼
-		String[] str= {"방 검색", "입실", "퇴실", "종료"};
+		String[] str= {"방 검색", "입실", "퇴실", "뒤로가기"};
 		
 		for(int i=0;i<4;i++) {
 			btn[i]=new JButton(str[i]);
 			btn[i].setSize(220,40);
 			btn[i].setLocation(90, 300+i*70);
+			btn[i].setBackground(Color.white);
+    		MatteBorder b=new MatteBorder(1,1,1,1,new Color(142, 196, 250));
+    		btn[i].setBorder(b);
+    		btn[i].setBackground(new Color(142, 196, 240));
+    		btn[i].setForeground(Color.white);
+    		btn[i].setFont(font);
 			btn[i].addActionListener(this);
 			add(btn[i]);
 		}
@@ -48,7 +68,9 @@ public class UserGUI extends JPanel implements ActionListener{
 			//팝업으로 입력받기
 			String people=JOptionPane.showInputDialog("사용할 인원을 입력하세요");
 			try {
-			    jl2.setText("사용 가능한 방은 ?? 입니다 (null은 사용가능한 방이 없음)"); 
+			    jl2.setText("사용 가능한 방은 ?? 입니다 "); 
+			    jl3.setText("null은 사용가능한 방이 없다는 뜻");
+			    jl3.setVisible(true);
 			} catch(Exception ee) {
 				jl2.setText("사용 가능한 방이 없습니다");
 			}
@@ -56,6 +78,7 @@ public class UserGUI extends JPanel implements ActionListener{
         
 		//입실
 		else if(e.getSource()==btn[1]) {
+			jl3.setVisible(false);
 			String room=JOptionPane.showInputDialog("입실하기 원하는 방의 이름을 입력하세요");
 			String name=JOptionPane.showInputDialog("사용자 이름을 입력하세요");
 			String time=JOptionPane.showInputDialog("입실 시간을 입력하세요 예:오후 3시 30분이면 1530으로 입력");
@@ -70,6 +93,7 @@ public class UserGUI extends JPanel implements ActionListener{
 		
 		//퇴실
 		else if(e.getSource()==btn[2]) {
+			jl3.setVisible(false);
 			String room=JOptionPane.showInputDialog("퇴실하기 원하는 방의 이름을 입력하세요");
 			String name=JOptionPane.showInputDialog("사용자 이름을 입력하세요");
 			String day=JOptionPane.showInputDialog("오늘 날짜를 입력해주세요");
@@ -82,10 +106,11 @@ public class UserGUI extends JPanel implements ActionListener{
 			}
 		}
 		
-		//종료
+		//뒤로가기
 		else if(e.getSource()==btn[3]) {
-			System.exit(0);
-			//종료가 좋을까 뒤로가기가 좋을까?
+    		this.setVisible(false);
+    		MainGUI mainGUI=new MainGUI();
+    		
 		}
 		
 		

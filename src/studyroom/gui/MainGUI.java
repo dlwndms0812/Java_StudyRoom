@@ -3,6 +3,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import com.sun.tools.javac.Main;
+
 import java.awt.event.*;
 import java.awt.*;
 
@@ -17,6 +19,11 @@ public class MainGUI extends JFrame implements ActionListener{
 	LoadGUI load=new LoadGUI();
 	
 	Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
+    ImageIcon image=new ImageIcon("/StudyRoom/image/terri.jpg"); //안나와...
+    public void paintComponent(Graphics g) {
+    		super.paintComponents(g);
+    		g.drawImage(image.getImage(), 50, 50, 50, 50, null);
+    	}
     public MainGUI() {
     	setTitle("STUDY ROOM");
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +41,7 @@ public class MainGUI extends JFrame implements ActionListener{
     	jl.setForeground(new Color(142, 196, 240));
     	jl.setHorizontalAlignment(JLabel.CENTER);
     	main.add(jl);
+    		
     	
     	//버튼
     	String[] str= {"사용자 모드", "관리자 모드", "저장", "불러오기", "종료"};
@@ -85,19 +93,19 @@ public class MainGUI extends JFrame implements ActionListener{
     	//관리자모드
     	else if(e.getSource()==btn[1]) {
     		main.setVisible(false);
-    		manager.setVisible(false);
+    		manager.setVisible(true);
     	}
     	
     	//저장
         else if(e.getSource()==btn[2]) {
         	main.setVisible(false);
-        	upload.setVisible(false);
+        	upload.setVisible(true);
         }
     	
     	//불러오기
         else if(e.getSource()==btn[3]) {
         	main.setVisible(false);
-        	load.setVisible(false);
+        	load.setVisible(true);
     	}
     	
     	//종료
