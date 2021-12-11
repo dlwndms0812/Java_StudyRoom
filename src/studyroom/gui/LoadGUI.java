@@ -1,7 +1,7 @@
 package studyroom.gui;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-
+import studyroom.dto.MgtClass;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -9,7 +9,8 @@ public class LoadGUI extends JPanel implements ActionListener{
 	JButton input=new JButton("입력");
 	JButton btn=new JButton("뒤로가기");
 	Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
-	
+	MgtClass mc=new MgtClass();
+    JTextField tf=new JTextField("이곳에 입력하세요");
     public LoadGUI() {
     	
 		this.setLayout(null);
@@ -42,7 +43,7 @@ public class LoadGUI extends JPanel implements ActionListener{
 		MatteBorder b=new MatteBorder(1,1,1,1,new Color(142, 196, 250));
 		
 		//입력 및 버튼
-		JTextField tf=new JTextField("이곳에 입력하세요");
+		
 		tf.setSize(230,40);
 		tf.setLocation(50,220);
 		tf.setBorder(b);
@@ -76,6 +77,9 @@ public class LoadGUI extends JPanel implements ActionListener{
     	//입력
     	if(e.getSource()==input) {
     		//수입만 db에서 불러오기
+    		String day=tf.getText();
+    		int d=Integer.parseInt(day);
+    		mc.showIncome(d);
     		JOptionPane.showMessageDialog(null, "ㅇㅇ날의 수입은 얼마입니다");
     	}
     	

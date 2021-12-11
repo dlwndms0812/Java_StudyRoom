@@ -14,6 +14,8 @@ public class StudyRoomDao {
     private static String dbuser="studyuser";
     private static String dbpasswd="study123";
     
+    int day_array[]=new int[365];
+    
     //방 생성: 방 이름, 인원 수, 요금 넣기
     public RoomClass resRoomdb(String room, int maxPeople, int fee) {
     	RoomClass roomclass=new RoomClass();
@@ -98,7 +100,7 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		
-		String sql="SELECT room_name FROM studydb WHERE use=0 and room_max>="+peopleNum;
+		String sql="SELECT room_name FROM studydb WHERE use_room=0 and room_max>="+peopleNum;
 		try(Connection conn=DriverManager.getConnection(dburl,dbuser,dbpasswd);
 				PreparedStatement ps=conn.prepareStatement(sql)){
 			try(ResultSet rs=ps.executeQuery()){
@@ -127,7 +129,7 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		
-		String sql="UPDATE studydb SET user_name="+name+", checkin="+enter+", use=1 WHERE room_name="+room;
+		String sql="UPDATE studydb SET user_name="+name+", checkin="+enter+", use_room=1 WHERE room_name="+room;
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
             
@@ -151,12 +153,12 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		
-		String sql="UPDATE studydb SET checkout="+exit+", use=0 WHERE room_name="+room+"and user_name="+name;
+		String sql="UPDATE studydb SET checkout="+exit+", use_room=0 WHERE room_name="+room+"and user_name="+name;
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
             
 			//roomclass.checkIn(name, enter); //이게 맞나..?
-			
+
             ps.executeUpdate();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -173,11 +175,8 @@ public class StudyRoomDao {
 			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-		int year=day/1000;
-		int m=day/100000;
-		int d=day%100000;
-		String dd=Integer.toString(year)+"-"+Integer.toString(m)+"-"+Integer.toString(d);
-		String sql="INSERT INTO incomedb(income_date, income) VALUES('"+dd+"',"+total+")";
+		//그냥 day를 date가 아닌 integer로 하기
+		String sql="INSERT INTO incomedb(income_date, income) VALUES('"+day+"',"+total+")";
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
       
@@ -216,5 +215,18 @@ public class StudyRoomDao {
 			ex.printStackTrace();
 		}
 		return income; 
+    }
+    
+    public int fee() {
+    	//요금 계산하기
+    	
+    }
+    
+    public int total(int day, int money) {
+    	//총 수입 계산해서 저장할 수 있는 함수 만들기
+    	//여기서 날짜별로 계산하고 setIncomedb로 가야할듯
+    	day_array[day]+=money;
+    	int t=day_array[day];
+    	return t;
     }
 }

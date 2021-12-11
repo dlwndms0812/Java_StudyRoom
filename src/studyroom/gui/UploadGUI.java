@@ -1,7 +1,7 @@
 package studyroom.gui;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-
+import studyroom.dto.MgtClass;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -9,7 +9,8 @@ public class UploadGUI extends JPanel implements ActionListener {
 	JButton input=new JButton("입력");
 	JButton btn=new JButton("뒤로가기");
 	Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
-    public UploadGUI() {
+    MgtClass mc=new MgtClass();
+	public UploadGUI() {
     	
 		this.setLayout(null);
 		
@@ -80,6 +81,7 @@ public class UploadGUI extends JPanel implements ActionListener {
     	if(e.getSource()==input) {
     		try {
     			//수입만 저장하기
+    			//수입 저장할 함수 만들기
     			JOptionPane.showMessageDialog(null, "저장되었습니다. 안녕히가세요");
     		}
     		catch(Exception ee) {

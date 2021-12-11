@@ -9,7 +9,7 @@ public class MgtClass {
 	private RoomClass[] roomArray=new RoomClass[100]; //방 객체 배열
 	private int[] totalIncome=new int[31]; //날짜별 매출
 	private int checkNumRoom=0; //방 개수
-
+    
 	//생성자
 	public MgtClass(){
 		
@@ -120,7 +120,8 @@ public class MgtClass {
 				dao.checkoutdb(room, name, exit);
 				roomArray[i].checkOut(exit);
 				check=true;
-				setIncome(day, i);
+				int fee=dao.fee(); //여기서 요금을 얻어오고
+				dao.total(day, fee); //여기다 오늘 날짜의 요금 더하기
 				int money=roomArray[i].getPay();
 				return money;
 			}
@@ -133,10 +134,10 @@ public class MgtClass {
 	}
 	
 	//매출 설정하기
-	public void setIncome(int day, int roomNum) { //roomNum 대신에 방 이름으로 바꿔야 할 듯, 위에 체크아웃도 바꾸기
-		totalIncome[day]+=roomArray[roomNum].getPay();
-		int total=totalIncome[day];
-		dao.setIncomedb(total, day);
+	public void setIncome(int day) { //roomNum 대신에 방 이름으로 바꿔야 할 듯, 위에 체크아웃도 바꾸기
+		//totalIncome[day]+=roomArray[roomNum].getPay();
+	    int t=dao.total(day, 0);
+		dao.setIncomedb(t, day);
 	}
 	
 	//매출 보여주기

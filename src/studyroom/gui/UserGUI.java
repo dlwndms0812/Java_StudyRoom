@@ -1,14 +1,17 @@
 package studyroom.gui;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-
+import studyroom.dto.MgtClass;
 import java.awt.event.*;
 import java.awt.*;
+
 public class UserGUI extends JPanel implements ActionListener{
 	JButton[] btn=new JButton[4];
     JLabel jl2=new JLabel();
     Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
     JLabel jl3=new JLabel();
+    MgtClass mc=new MgtClass();
+    
 	public UserGUI() {
 		
 		this.setLayout(null);
@@ -67,8 +70,10 @@ public class UserGUI extends JPanel implements ActionListener{
 		if(e.getSource()==btn[0]) {
 			//팝업으로 입력받기
 			String people=JOptionPane.showInputDialog("사용할 인원을 입력하세요");
+			int p=Integer.parseInt(people);
+			
 			try {
-			    jl2.setText("사용 가능한 방은 ?? 입니다 "); 
+			    jl2.setText("사용 가능한 방은 "+mc.searchRoom(p)+ "입니다"); 
 			    jl3.setText("null은 사용가능한 방이 없다는 뜻");
 			    jl3.setVisible(true);
 			} catch(Exception ee) {
@@ -82,8 +87,9 @@ public class UserGUI extends JPanel implements ActionListener{
 			String room=JOptionPane.showInputDialog("입실하기 원하는 방의 이름을 입력하세요");
 			String name=JOptionPane.showInputDialog("사용자 이름을 입력하세요");
 			String time=JOptionPane.showInputDialog("입실 시간을 입력하세요 예:오후 3시 30분이면 1530으로 입력");
-			
+			int t=Integer.parseInt(time);
 			try {
+				mc.checkIn(room, name, t);
 				jl2.setText("입실 처리되었습니다");
 			}
 			catch(Exception ee) {
@@ -98,9 +104,12 @@ public class UserGUI extends JPanel implements ActionListener{
 			String name=JOptionPane.showInputDialog("사용자 이름을 입력하세요");
 			String day=JOptionPane.showInputDialog("오늘 날짜를 입력해주세요");
 			String time=JOptionPane.showInputDialog("퇴실 시간을 입력하세요 예:오후 3시 30분이면 1530으로 입력");
-			
+			int d=Integer.parseInt(day);
+			int t=Integer.parseInt(time);
 			try {
-				jl2.setText("요금은 ?입니다 퇴실처리 되었습니다");
+				mc.checkOut(room, name, t, d);
+				//total+=day 하는 함수 만들기
+				jl2.setText("요금은 ?입니다 퇴실처리 되었습니다"); //요금 처리 어케함???????????????????????????//
 			} catch(Exception ee) {
 				jl2.setText("퇴실에 실패하였습니다");
 			}
