@@ -8,7 +8,7 @@ import java.awt.*;
 public class ManagerGUI extends JPanel implements ActionListener{
 	JButton[] btn=new JButton[5];
     JLabel jl2=new JLabel();
-   
+    JLabel jl3=new JLabel();
     Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
 	MgtClass mc=new MgtClass();
     public ManagerGUI() {
@@ -27,11 +27,16 @@ public class ManagerGUI extends JPanel implements ActionListener{
 		jl2.setSize(200,50);
 		jl2.setLocation(100,150);
 		jl2.setHorizontalAlignment(JLabel.CENTER);
-		jl2.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 15));
+		jl2.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 10));
     	jl2.setForeground(new Color(142, 196, 240));
 		add(jl2);
 		
-		
+		jl3.setSize(200,50);
+		jl3.setLocation(100,200);
+		jl3.setHorizontalAlignment(JLabel.CENTER);
+		jl3.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 10));
+    	jl3.setForeground(new Color(142, 196, 240));
+		add(jl3);
 		//버튼
 		String[] str= {"방 생성", "방 삭제", "매출 검색","방 현황", "뒤로가기"};
 
@@ -94,7 +99,9 @@ public class ManagerGUI extends JPanel implements ActionListener{
 		//방 현황
 		else if(e.getSource()==btn[3]) {
 			try {
-			    jl2.setText("현재 생성된 방의 목록입니다 "+mc.showRoom()); //이게 맞나..? 사용중을 찾아야하는거 아닌가 모르겠다
+			    jl2.setText("현재 생성된 방의 목록입니다 "); 
+			    //jl3.setText(mc.showRoom()+"");//이게 맞나..? 사용중을 찾아야하는거 아닌가 모르겠다
+			    JOptionPane.showMessageDialog(null, mc.showRoom());
 			} catch(Exception ee) {
 				jl2.setText("생성된 방이 없습니다");
 			}

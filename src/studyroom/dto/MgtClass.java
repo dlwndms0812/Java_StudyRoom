@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import studyroom.dao.StudyRoomDao;
+import studyroom.gui.UserGUI;
 
 public class MgtClass {
 	private StudyRoomDao dao=new StudyRoomDao();
@@ -52,8 +53,8 @@ public class MgtClass {
 	public ArrayList showRoom() throws Exception {
 		//String[] arr=new String[15];
 		//int cnt=0;
-		
-		if(checkNumRoom!=0) {
+		ArrayList<String> list=new ArrayList<String>();
+		//if(checkNumRoom!=0) {
     	    //for(int i=1;i<=checkNumRoom;i++) {
     	    	//String st=roomArray[i].getRoom();
     	       // arr[cnt]=st;
@@ -61,58 +62,77 @@ public class MgtClass {
     	   // }
     	  // String str= Arrays.toString(arr);
     	   //return (str);
-			return dao.showRoomdb();
-		}
-		else
-			throw new Exception("생성된 방이 없습니다.");
+			
+			//return dao.showRoomdb();
+		//}
+		//else
+		//	throw new Exception("생성된 방이 없습니다.");
+    	try {
+    		return dao.showRoomdb();
     		
+    	} catch(Exception e) {
+    		list.add("생성된 방이 없습니다");
+    		return list;
+    	}
+    	
     }
 	
 	//방 찾기
-	public String searchRoom(int peopleNum) throws Exception {
+	public String searchRoom(int peopleNum) { //throws Exception {
 		String[] arr=new String[15];
 		boolean check=false;
 		int cnt=0;
 		
-    	for(int i=1;i<=checkNumRoom;i++) {
+    	/*for(int i=1;i<=checkNumRoom;i++) {
     		if(roomArray[i].getPeople()==peopleNum&&roomArray[i].statusRoom()==false) {
     			String st=roomArray[i].getRoom();
     	        arr[cnt]=st;
     	        cnt++;
     			check=true;
+    			
     	    }
-    	}
-    	
-    	if(check) {
+    	}*/
+    	String str=dao.searchRoomdb(peopleNum)+"";
+    	return str;
+    	/*if(check) {
     	    String str= Arrays.toString(arr);
      	    return (str);
     	}
     	else
     		throw new Exception("방이 없습니다.");
     		
-    		
+    		*/
     }
 	
 	//체크인
-	public void checkIn(String room, String name, int enter) throws Exception{
-		boolean check=false;
+	public void checkIn(String room, String name, int enter) {//throws Exception{
+		/*boolean check=false;
 		
 		for(int i=1;i<=checkNumRoom;i++) {
 			if(room.equals(roomArray[i].getRoom())) {
-				dao.checkindb(room, name, enter);
+				
 				roomArray[i].checkIn(name,enter);
 				check=true;
 			}
+		}*/
+		try {
+		    dao.checkindb(room, name, enter);
 		}
+		catch(Exception e) {
+			UserGUI user=new UserGUI();
+			user.setjl2("입실에 실패했습니다");
+		    //("입실에 실패했습니다.");
+		}	
+			//if(!check){
 		
-		if(!check){
-			throw new Exception("체크인 할 수 없습니다.");
-		}
+		//	throw new Exception("체크인 할 수 없습니다.");
+		//}
 	}
 	
 	
 	//체크아웃
 	public int checkOut(String room, String name, int exit, int day) throws Exception{
+		/*
 		boolean check=false;
 		
 		for(int i=1;i<=checkNumRoom;i++) {
@@ -120,17 +140,20 @@ public class MgtClass {
 				dao.checkoutdb(room, name, exit);
 				roomArray[i].checkOut(exit);
 				check=true;
-				int fee=dao.fee(); //여기서 요금을 얻어오고
+				int fee=dao.fee(room); //여기서 요금을 얻어오고
 				dao.total(day, fee); //여기다 오늘 날짜의 요금 더하기
 				int money=roomArray[i].getPay();
-				return money;
+				return fee;
 			}
 		}
 		
 		if(!check){
 			throw new Exception("해당 방이 없습니다.");
-		}
-		return 0;
+		}*/
+		dao.checkoutdb(room, name, exit);
+		int fee=dao.fee(room); //여기서 요금을 얻어오고
+		dao.total(day, fee); //여기다 오늘 날짜의 요금 더하기
+		return fee;
 	}
 	
 	//매출 설정하기

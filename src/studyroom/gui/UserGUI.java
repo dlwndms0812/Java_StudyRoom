@@ -27,10 +27,10 @@ public class UserGUI extends JPanel implements ActionListener{
 		
 		//결과 값
 		//테두리 안되나?
-		jl2.setSize(200,50);
-		jl2.setLocation(100,180);
+		jl2.setSize(300,50);
+		jl2.setLocation(50,180);
 		jl2.setHorizontalAlignment(JLabel.CENTER);
-		jl2.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 15));
+		jl2.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 10));
     	jl2.setForeground(new Color(142, 196, 240));
 		add(jl2);
 		
@@ -65,6 +65,10 @@ public class UserGUI extends JPanel implements ActionListener{
 		setVisible(true);
 	}
 	
+	public void setjl2(String str) {
+		jl2.setText(str);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		//방 검색
 		if(e.getSource()==btn[0]) {
@@ -73,9 +77,11 @@ public class UserGUI extends JPanel implements ActionListener{
 			int p=Integer.parseInt(people);
 			
 			try {
-			    jl2.setText("사용 가능한 방은 "+mc.searchRoom(p)+ "입니다"); 
-			    jl3.setText("null은 사용가능한 방이 없다는 뜻");
-			    jl3.setVisible(true);
+			    //jl2.setText("사용 가능한 방은 "+mc.searchRoom(p)+ "입니다");
+				jl2.setText("null은 사용가능한 방이 없다는 뜻입니다");
+				JOptionPane.showMessageDialog(null, mc.searchRoom(p));
+			    
+			    //jl3.setVisible(true);
 			} catch(Exception ee) {
 				jl2.setText("사용 가능한 방이 없습니다");
 			}
@@ -104,12 +110,12 @@ public class UserGUI extends JPanel implements ActionListener{
 			String name=JOptionPane.showInputDialog("사용자 이름을 입력하세요");
 			String day=JOptionPane.showInputDialog("오늘 날짜를 입력해주세요");
 			String time=JOptionPane.showInputDialog("퇴실 시간을 입력하세요 예:오후 3시 30분이면 1530으로 입력");
+			
 			int d=Integer.parseInt(day);
 			int t=Integer.parseInt(time);
 			try {
-				mc.checkOut(room, name, t, d);
 				//total+=day 하는 함수 만들기
-				jl2.setText("요금은 ?입니다 퇴실처리 되었습니다"); //요금 처리 어케함???????????????????????????//
+				jl2.setText("요금은 "+mc.checkOut(room,name,t,d)+"입니다 퇴실처리 되었습니다"); 
 			} catch(Exception ee) {
 				jl2.setText("퇴실에 실패하였습니다");
 			}

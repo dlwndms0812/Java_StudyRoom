@@ -26,7 +26,7 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		
-		String sql="INSERT INTO studydb(room_name, room_max, fee) VALUES('"+room+"',"+maxPeople+","+fee+")";
+		String sql="INSERT INTO studydb(room_name, room_max, fee, use_room) VALUES('"+room+"',"+maxPeople+","+fee+","+0+")";
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
             
@@ -129,7 +129,7 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		
-		String sql="UPDATE studydb SET user_name="+name+", checkin="+enter+", use_room=1 WHERE room_name="+room;
+		String sql="UPDATE studydb SET user_name='"+name+"', checkin="+enter+", use_room=1 WHERE room_name='"+room+"'";
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
             
@@ -153,7 +153,7 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		
-		String sql="UPDATE studydb SET checkout="+exit+", use_room=0 WHERE room_name="+room+"and user_name="+name;
+		String sql="UPDATE studydb SET checkout="+exit+", use_room=0 WHERE room_name='"+room+"' and user_name='"+name+"'";
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
             
@@ -217,9 +217,48 @@ public class StudyRoomDao {
 		return income; 
     }
     
-    public int fee() {
+    public int fee(String room_name) {
     	//요금 계산하기
+    	int sum=0;
+    	int in=0;
+    	int out=0;
+    	int fee=0;
+    	int h=0;
+    	int m=0; 
+    	try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch(ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+    	String sql="SELECT checkin, checkout, fee FROM studydb WHERE room_name='"+room_name+"'";
     	
+    	try(Connection conn=DriverManager.getConnection(dburl,dbuser,dbpasswd);
+				PreparedStatement ps=conn.prepareStatement(sql)){
+			try(ResultSet rs=ps.executeQuery()){
+				while(rs.next()) {
+					in=rs.getInt(1);
+					out=rs.getInt(2);
+					fee=rs.getInt(3);
+					}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+    	int in_h=in/100;
+    	int in_m=in%100;
+    	int out_h=out/100;
+    	int out_m=out%100;
+    	h=out_h-in_h;
+    	m=out_m-in_m;
+    	if(m<0) {
+    		h-=1;
+    		m=0;
+    		m=60+out_m-in_m;
+    	}
+    	sum=(h*60+m)*fee;
+		return fee; 
     }
     
     public int total(int day, int money) {
