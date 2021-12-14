@@ -10,6 +10,7 @@ public class UploadGUI extends JPanel implements ActionListener {
 	JButton btn=new JButton("뒤로가기");
 	Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
     MgtClass mc=new MgtClass();
+	JTextField tf=new JTextField();
 	public UploadGUI() {
     	
 		this.setLayout(null);
@@ -42,7 +43,7 @@ public class UploadGUI extends JPanel implements ActionListener {
 		MatteBorder b=new MatteBorder(1,1,1,1,new Color(142, 196, 250));
 		
 		//입력 및 버튼
-		JTextField tf=new JTextField("이곳에 입력하세요");
+		
 		tf.setSize(230,40);
 		tf.setLocation(50,220);
 		tf.setBorder(b);
@@ -82,6 +83,9 @@ public class UploadGUI extends JPanel implements ActionListener {
     		try {
     			//수입만 저장하기
     			//수입 저장할 함수 만들기
+    			String str=tf.getText();
+    			int day=Integer.parseInt(str);
+    			mc.setIncome(day);
     			JOptionPane.showMessageDialog(null, "저장되었습니다. 안녕히가세요");
     		}
     		catch(Exception ee) {

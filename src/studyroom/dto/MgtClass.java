@@ -27,8 +27,9 @@ public class MgtClass {
 	}
 	
 	//방 삭제
-	public boolean remRoom(String roomName) throws Exception {
-		boolean remove=false;
+	public void remRoom(String roomName) {//throws Exception {
+		
+		/*boolean remove=false;
 		
 		
 		for(int i=1;i<=checkNumRoom;i++) {
@@ -46,6 +47,13 @@ public class MgtClass {
 			throw new Exception(roomName+"방을 삭제하지 못했습니다..");
 		}
 		return remove;
+		*/
+		try {
+			dao.remRoomdb(roomName);
+		
+		} catch(Exception ee) {
+			
+		}
 	}
 	
 	
@@ -151,8 +159,11 @@ public class MgtClass {
 			throw new Exception("해당 방이 없습니다.");
 		}*/
 		dao.checkoutdb(room, name, exit);
+		//System.out.println("체크아웃 완료");
 		int fee=dao.fee(room); //여기서 요금을 얻어오고
-		dao.total(day, fee); //여기다 오늘 날짜의 요금 더하기
+		//System.out.println("fee 완료");
+		//dao.total(day, fee); //여기다 오늘 날짜의 요금 더하기  //여기가 문제
+		//System.out.println("total 완료");
 		return fee;
 	}
 	

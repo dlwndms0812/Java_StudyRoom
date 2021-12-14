@@ -79,8 +79,7 @@ public class LoadGUI extends JPanel implements ActionListener{
     		//수입만 db에서 불러오기
     		String day=tf.getText();
     		int d=Integer.parseInt(day);
-    		mc.showIncome(d);
-    		JOptionPane.showMessageDialog(null, "ㅇㅇ날의 수입은 얼마입니다");
+    		JOptionPane.showMessageDialog(null, d+"날의 수입은 "+mc.showIncome(d)+"원 입니다");
     	}
     	
     	//뒤로가기

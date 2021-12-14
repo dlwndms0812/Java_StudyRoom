@@ -115,7 +115,7 @@ public class UserGUI extends JPanel implements ActionListener{
 			int t=Integer.parseInt(time);
 			try {
 				//total+=day 하는 함수 만들기
-				jl2.setText("요금은 "+mc.checkOut(room,name,t,d)+"입니다 퇴실처리 되었습니다"); 
+				jl2.setText("요금은 "+mc.checkOut(room,name,t,d)+"원 입니다 퇴실처리 되었습니다"); 
 			} catch(Exception ee) {
 				jl2.setText("퇴실에 실패하였습니다");
 			}

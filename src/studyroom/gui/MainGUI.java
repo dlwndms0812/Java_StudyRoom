@@ -19,7 +19,7 @@ public class MainGUI extends JFrame implements ActionListener{
 	LoadGUI load=new LoadGUI();
 	
 	Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
-    ImageIcon image=new ImageIcon("/StudyRoom/image/terri.jpg"); //안나와...
+    ImageIcon image=new ImageIcon("./image/terri.jpg"); //안나와...
     public void paintComponent(Graphics g) {
     		super.paintComponents(g);
     		g.drawImage(image.getImage(), 50, 50, 50, 50, null);

@@ -239,12 +239,14 @@ public class StudyRoomDao {
 					in=rs.getInt(1);
 					out=rs.getInt(2);
 					fee=rs.getInt(3);
-					}
-			} catch(Exception e) {
+					} System.out.println("받아오기 완료");
+			} catch(Exception e) {System.out.println("여기1");
 				e.printStackTrace();
+				
 			}
-		} catch(Exception ex) {
+		} catch(Exception ex) {System.out.println("여기2");
 			ex.printStackTrace();
+			
 		}
     	int in_h=in/100;
     	int in_m=in%100;
@@ -258,14 +260,20 @@ public class StudyRoomDao {
     		m=60+out_m-in_m;
     	}
     	sum=(h*60+m)*fee;
-		return fee; 
+    	
+    	//day_array[day]+=sum;
+    	//System.out.println(sum);
+		return sum; 
     }
     
     public int total(int day, int money) {
     	//총 수입 계산해서 저장할 수 있는 함수 만들기
     	//여기서 날짜별로 계산하고 setIncomedb로 가야할듯
     	day_array[day]+=money;
-    	int t=day_array[day];
-    	return t;
+    	int d=day_array[day];
+    	return d;
     }
+    
+   
+
 }
