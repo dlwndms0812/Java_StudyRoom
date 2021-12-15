@@ -14,7 +14,7 @@ public class StudyRoomDao {
     private static String dbuser="studyuser";
     private static String dbpasswd="study123";
     
-    int day_array[]=new int[365];
+    static int day_array[]=new int[10000];
     
     //방 생성: 방 이름, 인원 수, 요금 넣기
     public RoomClass resRoomdb(String room, int maxPeople, int fee) {
@@ -176,7 +176,7 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		//그냥 day를 date가 아닌 integer로 하기
-		String sql="INSERT INTO incomedb(income_date, income) VALUES('"+day+"',"+total+")";
+		String sql="INSERT INTO incomedb(income_day, income) VALUES('"+day+"',"+total+")";
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
       
@@ -196,11 +196,9 @@ public class StudyRoomDao {
 			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-		int year=day/1000;
-		int m=day/100000;
-		int d=day%100000;
-		String dd=Integer.toString(year)+"-"+Integer.toString(m)+"-"+Integer.toString(d);
-		String sql="SELECT income FROM incomedb WHERE income_day="+dd;
+		
+		
+		String sql="SELECT income FROM incomedb WHERE income_day="+day;
 	
 		try(Connection conn=DriverManager.getConnection(dburl,dbuser,dbpasswd);
 				PreparedStatement ps=conn.prepareStatement(sql)){
@@ -239,12 +237,12 @@ public class StudyRoomDao {
 					in=rs.getInt(1);
 					out=rs.getInt(2);
 					fee=rs.getInt(3);
-					} System.out.println("받아오기 완료");
-			} catch(Exception e) {System.out.println("여기1");
+					} 
+			} catch(Exception e) {
 				e.printStackTrace();
 				
 			}
-		} catch(Exception ex) {System.out.println("여기2");
+		} catch(Exception ex) {
 			ex.printStackTrace();
 			
 		}
@@ -273,7 +271,66 @@ public class StudyRoomDao {
     	int d=day_array[day];
     	return d;
     }
-    
+  
    
-
+   public void setday(int day) {
+	   try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch(ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		
+		String sql="INSERT INTO incomedb(income_day, income) VALUES('"+day+"',"+0+")";
+		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+     
+			
+           ps.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+   }
+   
+   public void checkout_fee(int day, int money) {
+	   try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch(ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		
+		String sql="UPDATE incomedb SET income="+money+" WHERE income_day="+day+"";
+		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+    
+			
+          ps.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+   }
+   
+   public int get_fee(int day) {
+	  int fee=0;
+   try {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	
+	String sql="SELECT income FROM incomedb WHERE income_day="+day;
+	try(Connection conn=DriverManager.getConnection(dburl,dbuser,dbpasswd);
+			PreparedStatement ps=conn.prepareStatement(sql)){
+		try(ResultSet rs=ps.executeQuery()){
+			while(rs.next()) {
+				fee=rs.getInt(1);
+				
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	} catch(Exception ex) {
+		ex.printStackTrace();
+	}
+	return fee;
+  }
 }

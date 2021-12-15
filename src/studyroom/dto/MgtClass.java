@@ -164,6 +164,14 @@ public class MgtClass {
 		//System.out.println("fee 완료");
 		//dao.total(day, fee); //여기다 오늘 날짜의 요금 더하기  //여기가 문제
 		//System.out.println("total 완료");
+		
+		//day 데베 만들기
+		dao.setday(day);
+		//기존의 day의 요금 가져와서 +fee 하기
+		int i=dao.get_fee(day);
+		int new_fee=i+fee;
+		//day에 요금 입력
+		dao.checkout_fee(day, new_fee);
 		return fee;
 	}
 	
@@ -171,7 +179,7 @@ public class MgtClass {
 	public void setIncome(int day) { //roomNum 대신에 방 이름으로 바꿔야 할 듯, 위에 체크아웃도 바꾸기
 		//totalIncome[day]+=roomArray[roomNum].getPay();
 	    int t=dao.total(day, 0);
-		dao.setIncomedb(t, day);
+		dao.setIncomedb(0, day);
 	}
 	
 	//매출 보여주기

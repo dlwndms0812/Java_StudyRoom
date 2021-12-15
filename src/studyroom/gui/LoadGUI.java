@@ -10,7 +10,7 @@ public class LoadGUI extends JPanel implements ActionListener{
 	JButton btn=new JButton("뒤로가기");
 	Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
 	MgtClass mc=new MgtClass();
-    JTextField tf=new JTextField("이곳에 입력하세요");
+    JTextField tf=new JTextField("");
     public LoadGUI() {
     	
 		this.setLayout(null);
@@ -32,7 +32,7 @@ public class LoadGUI extends JPanel implements ActionListener{
     	jl2.setForeground(new Color(142, 196, 240));
 		jl2.setHorizontalAlignment(JLabel.CENTER);
 		add(jl2);
-		JLabel jl3=new JLabel("예시:2021.12.7 -> 20211207");
+		JLabel jl3=new JLabel("예시:12월7일 -> 1207");
 		jl3.setSize(200,50);
 		jl3.setLocation(100,170);
 		jl3.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 10));
@@ -79,7 +79,9 @@ public class LoadGUI extends JPanel implements ActionListener{
     		//수입만 db에서 불러오기
     		String day=tf.getText();
     		int d=Integer.parseInt(day);
-    		JOptionPane.showMessageDialog(null, d+"날의 수입은 "+mc.showIncome(d)+"원 입니다");
+    		int m=d/100;
+    		int dd=d%100;
+    		JOptionPane.showMessageDialog(null, m+"월"+dd+"일의 수입은 "+mc.showIncome(d)+"원 입니다");
     	}
     	
     	//뒤로가기

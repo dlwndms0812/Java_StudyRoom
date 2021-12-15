@@ -32,7 +32,7 @@ public class UploadGUI extends JPanel implements ActionListener {
 		jl2.setForeground(new Color(142, 196, 240));
 		jl2.setHorizontalAlignment(JLabel.CENTER);
 		add(jl2);
-		JLabel jl3=new JLabel("예시:2021.12.7 -> 20211207");
+		JLabel jl3=new JLabel("예시:12월7일 -> 1207");
 		jl3.setSize(200,50);
 		jl3.setLocation(100,170);
 		jl3.setFont(new Font("나눔바른펜OTF 굵게", Font.BOLD, 10));
