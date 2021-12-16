@@ -78,7 +78,7 @@ public class UserGUI extends JPanel implements ActionListener{
 			
 			try {
 			    //jl2.setText("사용 가능한 방은 "+mc.searchRoom(p)+ "입니다");
-				jl2.setText("null은 사용가능한 방이 없다는 뜻입니다");
+				//jl2.setText("null은 사용가능한 방이 없다는 뜻입니다");
 				JOptionPane.showMessageDialog(null, mc.searchRoom(p));
 			    
 			    //jl3.setVisible(true);

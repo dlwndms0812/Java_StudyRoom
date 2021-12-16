@@ -78,8 +78,8 @@ public class StudyRoomDao {
 					int max=rs.getInt(2);
 					String maxx=Integer.toString(max);
 				
-					list.add("방 이름:"+name+", ");
-					list.add("인원 수:"+maxx+"  ");
+					list.add("방 이름:"+name+" ");
+					list.add("인원 수:"+maxx+" ");
 				}
 			} catch(Exception e) {
 				e.printStackTrace();

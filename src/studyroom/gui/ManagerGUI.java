@@ -92,8 +92,9 @@ public class ManagerGUI extends JPanel implements ActionListener{
 		else if(e.getSource()==btn[2]) {
 			String day=JOptionPane.showInputDialog("매출 검색을 원하는 날짜를 입력해주세요");
 			int d=Integer.parseInt(day);
-			
-			jl2.setText(day+"일의 총 매출은 "+mc.showIncome(d)+ " 원입니다");
+			int m=d/100;
+			int dd=d%100;
+			jl2.setText(m+"월"+dd+"일의 총 매출은 "+mc.showIncome(d)+ " 원입니다");
 		}
 		
 		//방 현황
