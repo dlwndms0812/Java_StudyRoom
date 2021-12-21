@@ -129,7 +129,7 @@ public class StudyRoomDao {
 				e.printStackTrace();
 			}
 		
-		String sql="UPDATE studydb SET user_name='"+name+"', checkin="+enter+", use_room=1 WHERE room_name='"+room+"'";
+		String sql="UPDATE studydb SET user_name='"+name+"', checkin="+enter+", use_room=1 WHERE room_name='"+room+"' and use_room=0";
 		try (Connection conn = DriverManager.getConnection(dburl, dbuser, dbpasswd);
 				PreparedStatement ps = conn.prepareStatement(sql)) {
             
