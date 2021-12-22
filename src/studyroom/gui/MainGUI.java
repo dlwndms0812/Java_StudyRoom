@@ -19,11 +19,8 @@ public class MainGUI extends JFrame implements ActionListener{
 	LoadGUI load=new LoadGUI();
 	
 	Font font=new Font("나눔바른펜OTF 굵게", Font.BOLD, 15);
-    ImageIcon image=new ImageIcon("./image/terri.jpg"); //안나와...
-    public void paintComponent(Graphics g) {
-    		super.paintComponents(g);
-    		g.drawImage(image.getImage(), 50, 50, 50, 50, null);
-    	}
+   
+    
     public MainGUI() {
     	setTitle("STUDY ROOM");
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
